@@ -1,0 +1,45 @@
+{
+  "name": "react-ssr-starter",
+  "version": "0.0.1",
+  "description": "A react StarterKit with SSR and Code Split",
+  "main": "dist/main.js",
+  "scripts": {
+    "watch": "webpack --mode development --watch & nodemon dist/main",
+    "start": "NODE_ENV=production node dist/main",
+    "build": "rm -rf dist public && webpack --mode production --progress",
+    "start:dev": "node dist/main",
+    "build:dev": "rm -rf dist public && webpack --mode development --progress",
+    "stats": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json dist"
+  },
+  "author": "Kumar Mukesh",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "@loadable/babel-plugin": "^5.12.0",
+    "@loadable/webpack-plugin": "^5.12.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-import": "^1.13.0",
+    "core-js": "^3.6.5",
+    "nodemon": "^2.0.4",
+    "reload": "^3.0.4",
+    "webpack": "^4.43.0",
+    "webpack-bundle-analyzer": "^3.8.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "@loadable/component": "^5.12.0",
+    "@loadable/server": "^5.12.0",
+    "axios": "^0.19.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
+  }
+}
