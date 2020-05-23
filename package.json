@@ -2,7 +2,7 @@
   "name": "react-ssr-starter",
   "version": "0.0.1",
   "description": "A react StarterKit with SSR and Code Split",
-  "main": "dist/main.js",
+  "main": "build/server/main.js",
   "scripts": {
     "watch": "webpack --mode development --watch & nodemon build/server/main",
     "start": "NODE_ENV=production node build/server/main",
@@ -40,6 +40,7 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.1.0"
   }
 }
