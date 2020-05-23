@@ -4,11 +4,11 @@
   "description": "A react StarterKit with SSR and Code Split",
   "main": "dist/main.js",
   "scripts": {
-    "watch": "webpack --mode development --watch & nodemon dist/main",
-    "start": "NODE_ENV=production node dist/main",
-    "build": "rm -rf dist public && webpack --mode production --progress",
-    "start:dev": "node dist/main",
-    "build:dev": "rm -rf dist public && webpack --mode development --progress",
+    "watch": "webpack --mode development --watch & nodemon build/server/main",
+    "start": "NODE_ENV=production node build/server/main",
+    "build": "rm -rf build && webpack --mode production --progress",
+    "start:dev": "node build/server/main",
+    "build:dev": "rm -rf build && webpack --mode development --progress",
     "stats": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json dist"
   },
   "author": "Kumar Mukesh",

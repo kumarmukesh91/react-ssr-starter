@@ -9,21 +9,16 @@ import App from './App';
 const app = express();
 const port = 3000;
 
-app.use(express.static('public'));
+app.use(express.static(path.resolve('./build/client/')));
 
 app.use((req, res) => {
-  console.log('asdf', __dirname, __filename, path.resolve(__dirname, '../'));
-  const statsFile = path.resolve('./public/loadable-stats.json');
+  const statsFile = path.resolve('./build/client/loadable-stats.json');
   const extractor = new ChunkExtractor({ statsFile });
   const html = renderToString(
     <ChunkExtractorManager extractor={extractor}>
       <App />
     </ChunkExtractorManager>
   );
-  const scriptTags = extractor.getScriptTags();
-  const linkTags = extractor.getLinkTags(); // or extractor.getLinkElements();
-  // And you can even collect your style tags (if you use "mini-css-extract-plugin")
-  const styleTags = extractor.getStyleTags(); // or extractor.getStyleElements();
 
   res.send(`
     <!DOCTYPE html>

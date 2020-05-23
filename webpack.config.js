@@ -17,7 +17,7 @@ const clientConfig = {
   target: 'web',
   entry: './src/client.js',
   output: {
-    path: path.resolve(__dirname, './public/'),
+    path: path.resolve(__dirname, './build/client'),
   },
 };
 
@@ -25,6 +25,9 @@ const serverConfig = {
   ...commonConfig,
   target: 'node',
   entry: './src/server.js',
+  output: {
+    path: path.resolve(__dirname, './build/server'),
+  },
   externals: [nodeExternals()],
 };
 
