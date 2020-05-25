@@ -1,41 +1,32 @@
-import express from 'express';
 import path from 'path';
-import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
+import express from 'express';
+import { matchRoutes } from 'react-router-config';
+// import proxy from 'express-http-proxy';
 
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-
-import App from './App';
+import renderer from './helpers/renderer';
+import createStore from './helpers/createStore';
+import routeConfig from './routeConfig';
 
 const app = express();
 const port = 3000;
 
 app.use(express.static(path.resolve('./build/client/')));
+// app.use('/api', proxy('proxy url'));
 
 app.use((req, res) => {
-  const statsFile = path.resolve('./build/client/loadable-stats.json');
-  const extractor = new ChunkExtractor({ statsFile });
-  const html = renderToString(
-    <ChunkExtractorManager extractor={extractor}>
-      <App />
-    </ChunkExtractorManager>
-  );
-
-  res.send(`
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        ${extractor.getLinkTags()}
-        ${extractor.getStyleTags()}
-      </head>
-      <body>
-        <div id="root">${html}</div>
-
-        ${extractor.getScriptTags()}
-      </body>
-    </html>`);
+  const store = createStore(req);
+  const componentsToRender = matchRoutes(routeConfig, req.path);
+  console.log(componentsToRender);
+  const promises = componentsToRender.map(({ route }) => {
+    return route.loadData && route.loadData(store);
+  });
+  Promise.all(promises)
+    .then(() => {
+      res.send(renderer(req, store));
+    })
+    .catch(() => {
+      res.send('Page Not Found');
+    });
 });
-app.listen(port, () => console.log('Server at 3000'));
+
+app.listen(port, () => console.log('Server running at 3000'));
